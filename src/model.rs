@@ -1772,7 +1772,6 @@ pub struct UserSettings {
 	pub locale: String,
 	pub message_display_compact: bool,
 	pub render_embeds: bool,
-	pub server_positions: Vec<ServerId>,
 	pub show_current_game: bool,
 	pub status: String,
 	pub theme: String,
@@ -1807,10 +1806,6 @@ impl UserSettings {
 					try!(remove(&mut value, "message_display_compact")).as_bool()
 				),
 				render_embeds: req!(try!(remove(&mut value, "render_embeds")).as_bool()),
-				server_positions: try!(decode_array(
-					try!(remove(&mut value, "guild_positions")),
-					ServerId::decode
-				)),
 				show_current_game: req!(try!(remove(&mut value, "show_current_game")).as_bool()),
 				status: try!(remove(&mut value, "status").and_then(into_string)),
 				theme: try!(remove(&mut value, "theme").and_then(into_string)),
@@ -2006,7 +2001,6 @@ pub enum Event {
 		locale: Option<String>,
 		message_display_compact: Option<bool>,
 		render_embeds: Option<bool>,
-		server_positions: Option<Vec<ServerId>>,
 		show_current_game: Option<bool>,
 		status: Option<String>,
 		theme: Option<String>,
@@ -2212,10 +2206,6 @@ impl Event {
 					render_embeds: remove(&mut value, "render_embeds")
 						.ok()
 						.and_then(|v| v.as_bool()),
-					server_positions: try!(opt(&mut value, "guild_positions", |v| decode_array(
-						v,
-						ServerId::decode
-					))),
 					show_current_game: remove(&mut value, "show_current_game")
 						.ok()
 						.and_then(|v| v.as_bool()),

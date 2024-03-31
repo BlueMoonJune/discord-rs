@@ -127,7 +127,6 @@ impl State {
 				ref locale,
 				ref message_display_compact,
 				ref render_embeds,
-				ref server_positions,
 				ref show_current_game,
 				ref status,
 				ref theme,
@@ -152,7 +151,6 @@ impl State {
 						message_display_compact,
 					);
 					opt_modify(&mut settings.render_embeds, render_embeds);
-					opt_modify(&mut settings.server_positions, server_positions);
 					opt_modify(&mut settings.show_current_game, show_current_game);
 					opt_modify(&mut settings.status, status);
 					opt_modify(&mut settings.theme, theme);
